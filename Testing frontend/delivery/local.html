@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Amazon Local Buy</title>
+    <style>
+        body {
+            background: #f6f6f6;
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #fff;
+            box-shadow: 0 1px 4px #0001;
+            padding: 0 0 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .amazon-logo {
+            height: 38px;
+            margin-left: 24px;
+        }
+        .nav-tabs {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-left: 24px;
+        }
+        .nav-tab {
+            font-size: 1.08rem;
+            color: #232f3e;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 18px 18px 0 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        .nav-tab.selected, .nav-tab:hover {
+            background: #eaffea;
+            color: #21c521;
+        }
+        .search-bar-wrap {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        .search-bar {
+            width: 340px;
+            max-width: 90vw;
+            padding: 8px 14px;
+            border-radius: 22px;
+            border: 1.5px solid #bbb;
+            font-size: 1.05rem;
+            margin: 0 18px;
+        }
+        .header-right {
+            margin-right: 24px;
+        }
+        .eco-banner {
+            background: #eaffea;
+            color: #21c521;
+            font-weight: 600;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 1.08rem;
+            letter-spacing: 0.2px;
+        }
+        .main-content {
+            display: flex;
+            gap: 28px;
+            max-width: 1200px;
+            margin: 32px auto 0 auto;
+            padding: 0 18px;
+        }
+        .sidebar {
+            width: 220px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px #0001;
+            padding: 18px 16px;
+            font-size: 1.01rem;
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            height: fit-content;
+        }
+        .sidebar label {
+            font-weight: 600;
+            color: #232f3e;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .sidebar select, .sidebar input[type="checkbox"] {
+            margin-bottom: 10px;
+        }
+        .products-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .sort-bar {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 8px;
+        }
+        .sort-bar label {
+            font-weight: 600;
+            color: #232f3e;
+        }
+        .sort-bar select {
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid #bbb;
+            font-size: 1rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #0001;
+            padding: 18px 16px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-height: 370px;
+        }
+        .product-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+        .product-title {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: #232f3e;
+            text-align: center;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .product-location {
+            font-size: 0.97rem;
+            color: #555;
+            margin-bottom: 4px;
+        }
+        .eco-score-badge {
+            background: #eaffea;
+            color: #21c521;
+            font-weight: 700;
+            border-radius: 12px;
+            padding: 2px 12px;
+            font-size: 0.98rem;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+        .free-delivery {
+            background: #ffd814;
+            color: #232f3e;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 2px 10px;
+            font-size: 0.97rem;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+        .product-price {
+            font-size: 1.13rem;
+            font-weight: 700;
+            color: #232f3e;
+            margin-bottom: 2px;
+        }
+        .eco-points {
+            color: #21c521;
+            font-weight: 600;
+            font-size: 1.01rem;
+            margin-bottom: 8px;
+        }
+        .buy-local-btn {
+            background: linear-gradient(90deg, #21c521 60%, #ffd814 100%);
+            color: #fff;
+            font-size: 1.13rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 24px;
+            padding: 12px 0;
+            width: 90%;
+            margin: 12px 0 0 0;
+            box-shadow: 0 2px 8px #21c52122, 0 1.5px 0 #ffd814;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+            letter-spacing: 0.5px;
+            text-align: center;
+            display: block;
+        }
+        .buy-local-btn:hover, .buy-local-btn:focus {
+            background: linear-gradient(90deg, #ffd814 60%, #21c521 100%);
+            color: #232f3e;
+            box-shadow: 0 4px 16px #21c52133;
+            transform: translateY(-2px) scale(1.03);
+            outline: none;
+        }
+        .product-card .buy-local-btn {
+            align-self: stretch;
+        }
+        .eco-tooltip {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+        .eco-tooltip .eco-tooltip-text {
+            visibility: hidden;
+            width: 210px;
+            background: #232f3e;
+            color: #fff;
+            text-align: left;
+            border-radius: 8px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -105px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 0.97rem;
+        }
+        .eco-tooltip:hover .eco-tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+                gap: 0;
+            }
+            .sidebar {
+                width: 100%;
+                min-width: unset;
+                margin-bottom: 18px;
+            }
+        }
+        @media (max-width: 600px) {
+            .header, .main-content {
+                padding: 0 2vw;
+            }
+            .sidebar {
+                padding: 10px 4px;
+            }
+            .product-card {
+                min-height: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <img class="amazon-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo">
+            <div class="nav-tabs">
+                <button class="nav-tab">Today's Deals</button>
+                <button class="nav-tab">Fresh</button>
+                <button class="nav-tab selected">Local Buy</button>
+            </div>
+        </div>
+        <div class="search-bar-wrap">
+            <input class="search-bar" type="text" placeholder="Search Local Products">
+        </div>
+        <div class="header-right">
+            <!-- Placeholder for user/account/cart icons -->
+        </div>
+    </div>
+    <div class="eco-banner">
+        Buy Local to Earn Eco Points
+    </div>
+    <div class="main-content">
+        <aside class="sidebar">
+            <div>
+                <!-- Removed dropdown, just show city -->
+                <div style="font-weight:600; color:#232f3e; margin-bottom:4px;">Your City:</div>
+                <div style="font-size:1.08rem; font-weight:600; color:#21c521;">Patna</div>
+                <div style="margin-top:6px; color:#21c521; font-weight:600; font-size:1.01rem;">
+                    Showing nearby stores
+                </div>
+            </div>
+            <div>
+                <label for="category-filter">Category</label>
+                <select id="category-filter">
+                    <option>All</option>
+                    <option>Groceries</option>
+                    <option>Electronics</option>
+                    <option>Clothing</option>
+                    <option>Home & Kitchen</option>
+                </select>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="eco-packaging-filter"> Eco Packaging Only
+                </label>
+            </div>
+        </aside>
+        <section class="products-section">
+            <div class="sort-bar">
+                <label for="sort-by">Sort by:</label>
+                <select id="sort-by">
+                    <option>🌱 Highest Eco Score</option>
+                    <option>🚛 Fastest Local Delivery</option>
+                    <option>🏪 Nearest Warehouse</option>
+                </select>
+            </div>
+            <div class="product-grid">
+                <!-- Example Product Card -->
+                <div class="product-card">
+                    <img class="product-img" src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTe2uIeb86rOrN9Zkzy3iDulrlkveMI3_roJ8W1NBu5qlPP7Eljz9rqRLpxPNNSO4ev0ESbWKVMKhPGVoXUdl4i-UjQZ10XMsYBi3hef2R9y5BW2Lw3J0C36Q" alt="Product">
+                    <div class="product-title">Organic Basmati Rice 5kg Bag</div>
+                    <div class="product-location">🏷️ Sold from: Patna</div>
+                    <div class="eco-score-badge">🌱 Score: 8.5/10</div>
+                    <div class="free-delivery">Free Local Delivery</div>
+                    <div class="product-price">₹599</div>
+                    <div class="eco-points eco-tooltip">
+                        +15 Eco Points
+                        <span class="eco-tooltip-text">Eco Points are rewards for sustainable choices</span>
+                    </div>
+                    <button class="buy-local-btn">Buy Local</button>
+                </div>
+                <div class="product-card">
+                    <img class="product-img" src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRFfgwmFChHIdaW0Z1T9Wl4PY-rJPCKy4t3M1sfGqpTP5fWAsCR2_V5AqGABdpau4xSHccP-zCjP0aBZ_tYbWevGxwPhZptNh2oG6hrlh0Q&usqp=CAc" alt="Product">
+                    <div class="product-title">Handmade Clay Water Bottle</div>
+                    <div class="product-location">🏷️ Sold from: Patna</div>
+                    <div class="eco-score-badge">🌱 Score: 9.2/10</div>
+                    <div class="free-delivery">Free Local Delivery</div>
+                    <div class="product-price">₹299</div>
+                    <div class="eco-points eco-tooltip">
+                        +20 Eco Points
+                        <span class="eco-tooltip-text">Eco Points are rewards for sustainable choices</span>
+                    </div>
+                    <button class="buy-local-btn">Buy Local</button>
+                </div>
+                <div class="product-card">
+                    <img class="product-img" src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQeIo6zeoPGk5aSDPv19cJ838eKn46Y-YjPBfNqRTSKkcA_wLo21VECZQkZensdpxVMGlSz3xnLAIoOSwaZMagMO4Phy24TvArs3Kbj21iG&usqp=CAc" alt="Product">
+                    <div class="product-title">Bamboo Toothbrush (Pack of 4)</div>
+                    <div class="product-location">🏷️ Sold from: Patna</div>
+                    <div class="eco-score-badge">🌱 Score: 9.0/10</div>
+                    <div class="free-delivery">Free Local Delivery</div>
+                    <div class="product-price">₹149</div>
+                    <div class="eco-points eco-tooltip">
+                        +10 Eco Points
+                        <span class="eco-tooltip-text">Eco Points are rewards for sustainable choices</span>
+                    </div>
+                    <button class="buy-local-btn">Buy Local</button>
+                </div>
+                <!-- ...add more product cards as needed... -->
+            </div>
+        </section>
+    </div>
+</body>
+</html>

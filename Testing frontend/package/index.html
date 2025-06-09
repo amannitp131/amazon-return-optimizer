@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eco-Packaging Preferences</title>
+    <style>
+        /* ...existing code... */
+        .eco-packaging-section {
+            background: #f6f6f6;
+            border-radius: 10px;
+            border: 1.5px solid #b6e2b6;
+            padding: 24px 20px 18px 20px;
+            margin: 32px auto 0 auto;
+            max-width: 780px;
+            box-shadow: 0 2px 8px #21c52118;
+        }
+        .eco-packaging-title {
+            font-size: 1.18rem;
+            font-weight: 600;
+            color: #1a4d1a;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .eco-packaging-options {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .eco-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: #fff;
+            border-radius: 7px;
+            padding: 12px 14px;
+            border: 1.5px solid #e0e0e0;
+            transition: border 0.2s;
+        }
+        .eco-option.selected {
+            border: 2px solid #21c521;
+            background: #f6fff6;
+        }
+        .eco-radio {
+            accent-color: #21c521;
+            width: 22px;
+            height: 22px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+        .eco-label {
+            font-size: 1.06rem;
+            font-weight: 500;
+            color: #222;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .eco-desc {
+            font-size: 0.97rem;
+            color: #555;
+            margin-top: 2px;
+            margin-left: 2px;
+        }
+        .eco-icon {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+        @media (max-width: 600px) {
+            .eco-packaging-section {
+                padding: 14px 4px 12px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ...existing code... -->
+    <section class="eco-packaging-section" aria-labelledby="eco-packaging-title">
+        <div class="eco-packaging-title" id="eco-packaging-title">
+            <svg class="eco-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#21c52122"/><path d="M16 7l7 4v10l-7 4-7-4V11l7-4z" stroke="#21c521" stroke-width="2" fill="#fff"/></svg>
+            Eco-Friendly Packaging Preferences
+        </div>
+        <form id="eco-packaging-form" autocomplete="off">
+            <div class="eco-packaging-options">
+                <label class="eco-option selected" id="option-consolidated">
+                    <input class="eco-radio" type="radio" name="eco_packaging" id="consolidated" value="consolidated" checked aria-describedby="desc-consolidated">
+                    <span class="eco-label">
+                        <svg class="eco-icon" viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="12" rx="3" fill="#e6fbe6" stroke="#21c521" stroke-width="2"/></svg>
+                        Consolidated Packaging
+                    </span>
+                    <span class="eco-desc" id="desc-consolidated">Combines your items to reduce material use.</span>
+                    <span style="margin-left:32px; color:#21c521; font-weight:600; font-size:1.01rem;">+10 eco-points</span>
+                </label>
+                <label class="eco-option" id="option-green">
+                    <input class="eco-radio" type="radio" name="eco_packaging" id="green" value="green" aria-describedby="desc-green">
+                    <span class="eco-label">
+                        <svg class="eco-icon" viewBox="0 0 32 32" fill="none"><ellipse cx="16" cy="16" rx="13" ry="10" fill="#eaffea" stroke="#21c521" stroke-width="2"/><path d="M16 10v12" stroke="#21c521" stroke-width="2"/><path d="M12 18c2-2 6-2 8 0" stroke="#21c521" stroke-width="2"/></svg>
+                        Green Packaging
+                    </span>
+                    <span class="eco-desc" id="desc-green">Uses recyclable and biodegradable materials.</span>
+                    <span style="margin-left:32px; color:#21c521; font-weight:600; font-size:1.01rem;">+15 eco-points</span>
+                </label>
+                <label class="eco-option" id="option-original">
+                    <input class="eco-radio" type="radio" name="eco_packaging" id="original" value="original" aria-describedby="desc-original">
+                    <span class="eco-label">
+                        <svg class="eco-icon" viewBox="0 0 32 32" fill="none"><rect x="8" y="12" width="16" height="8" rx="2" fill="#f7f7f7" stroke="#888" stroke-width="2"/><path d="M8 16h16" stroke="#888" stroke-width="2"/></svg>
+                        No Packaging 
+                    </span>
+                    <span class="eco-desc" id="desc-original">Ships products in their original durable containers.</span>
+                    <span style="margin-left:32px; color:#21c521; font-weight:600; font-size:1.01rem;">+20 eco-points</span>
+                </label>
+                <label class="eco-option" id="option-normal" style="border-color:#21c521;">
+                    <input class="eco-radio" type="radio" name="eco_packaging" id="normal" value="normal" aria-describedby="desc-normal">
+                    <span class="eco-label" style="color:#222;">
+                        <svg class="eco-icon" viewBox="0 0 32 32" fill="none">
+                            <rect x="7" y="10" width="18" height="12" rx="3" fill="#eaffea" stroke="#21c521" stroke-width="2"/>
+                            <path d="M7 16h18" stroke="#21c521" stroke-width="2"/>
+                        </svg>
+                        Normal Packaging
+                    </span>
+                    <span class="eco-desc" id="desc-normal"></span>
+                </label>
+            </div>
+        </form>
+    </section>
+    <script>
+        // ...existing code...
+        // State management and UI selection highlight
+        document.querySelectorAll('.eco-radio').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.eco-option').forEach(opt => opt.classList.remove('selected'));
+                this.closest('.eco-option').classList.add('selected');
+            });
+        });
+
+        // Validation example (ensure one is selected before submission)
+        document.getElementById('eco-packaging-form').addEventListener('submit', function(e) {
+            if (!document.querySelector('input[name="eco_packaging"]:checked')) {
+                alert('Please select an eco-packaging option.');
+                e.preventDefault();
+            }
+        });
+    </script>
+    <!-- ...existing code... -->
+</body>
+</html>

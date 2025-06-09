@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Amazon Eco Leaderboard</title>
+    <style>
+        body {
+            background: #f3f3f3;
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .leaderboard-container {
+            max-width: 420px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #0001;
+            padding: 28px 24px 32px 24px;
+            border: 1.5px solid #ffd814;
+        }
+        .amazon-logo {
+            display: block;
+            margin: 0 auto 18px auto;
+            width: 120px;
+        }
+        .leaderboard-title {
+            text-align: center;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #232f3e;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+        .user-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .user-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fafafa;
+            border-radius: 7px;
+            margin-bottom: 10px;
+            padding: 10px 16px;
+            border-left: 5px solid #ffd814;
+            transition: background 0.2s;
+        }
+        .user-row.top {
+            background: #fffbe6;
+            border-left: 5px solid #ff9900;
+            font-weight: 700;
+        }
+        .user-rank {
+            font-size: 1.08rem;
+            color: #232f3e;
+            width: 32px;
+            text-align: center;
+        }
+        .user-name {
+            font-size: 1.08rem;
+            color: #232f3e;
+            flex: 1;
+            margin-left: 8px;
+        }
+        .user-points {
+            font-size: 1.08rem;
+            color: #007600;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .eco-coin {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="leaderboard-container">
+        <img class="amazon-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo">
+        <div class="leaderboard-title">Eco Points Leaderboard</div>
+        <ul class="user-list" id="user-list">
+            <!-- User rows will be injected here -->
+        </ul>
+    </div>
+    <script>
+        const users = [
+            { name: "Brother of Destruction", points: 210 },
+            { name: "Priya Sharma", points: 195 },
+            { name: "Rahul Singh", points: 180 },
+            { name: "Sneha Patel", points: 170 },
+            { name: "Vikas Gupta", points: 165 },
+            { name: "Anjali Verma", points: 160 },
+            { name: "Rohit Sinha", points: 155 },
+            { name: "Neha Agarwal", points: 150 },
+            { name: "Saurabh Jain", points: 145 },
+            { name: "Divya Mehta", points: 140 }
+        ];
+
+        const userList = document.getElementById('user-list');
+        users.forEach((user, idx) => {
+            const li = document.createElement('li');
+            li.className = 'user-row' + (idx === 0 ? ' top' : '');
+            li.innerHTML = `
+                <span class="user-rank">${idx + 1}</span>
+                <span class="user-name">${user.name}</span>
+                <span class="user-points">
+                    <svg class="eco-coin" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="9" fill="#ffd814" stroke="#ff9900" stroke-width="2"/>
+                        <text x="10" y="15" text-anchor="middle" font-size="11" font-family="Arial" fill="#007600" font-weight="bold">E</text>
+                    </svg>
+                    ${user.points}
+                </span>
+            `;
+            userList.appendChild(li);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Return Risk Prediction</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #e7f6ff 0%, #f6fff6 100%);
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .risk-container {
+            max-width: 540px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px #21c52122, 0 1.5px 0 #ffd814;
+            padding: 32px 28px 28px 28px;
+            border: 2px solid #ffd814;
+            position: relative;
+        }
+        .risk-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .risk-header img {
+            width: 48px;
+            height: 48px;
+        }
+        .risk-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #232f3e;
+            letter-spacing: 0.5px;
+        }
+        .risk-box {
+            background: #fffbe6;
+            border: 2px solid #ffd814;
+            border-radius: 10px;
+            padding: 22px 20px 18px 20px;
+            margin-top: 18px;
+            box-shadow: 0 2px 8px #ffd81422;
+        }
+        .risk-label {
+            font-weight: 600;
+            color: #232f3e;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .risk-row {
+            margin-bottom: 10px;
+            font-size: 1.08rem;
+        }
+        .risk-row strong {
+            color: #232f3e;
+            font-weight: 700;
+            margin-right: 6px;
+        }
+        .risk-high {
+            color: #e67c00;
+            font-weight: 700;
+            background: #ffe7b2;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 1.01rem;
+            margin-left: 6px;
+        }
+        .risk-points {
+            color: #21c521;
+            font-weight: 700;
+            font-size: 1.04rem;
+            margin-left: 6px;
+        }
+        .risk-why {
+            color: #555;
+            font-size: 0.99rem;
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="risk-container">
+        <div style="text-align:center; margin-bottom:18px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo" style="width:130px; height:auto; display:inline-block;">
+        </div>
+        <div class="risk-header">
+            <span class="risk-title">AI Return Risk Prediction</span>
+        </div>
+        <div class="risk-box">
+            <div class="risk-row"><strong>Order ID:</strong> #AMZ123456</div>
+            <div class="risk-row"><strong>Order Details:</strong> Nike Running Shoes, Size 9, Color: Black</div>
+            <div class="risk-row">
+                <strong>Return Risk:</strong>
+                <span class="risk-high">High</span>
+            </div>
+            <div class="risk-row risk-why">
+                <strong>Why it can be returned?</strong>
+                <ul style="margin: 6px 0 0 18px; padding: 0; color: #555;">
+                    <li>High return rate for this product category (Footwear)</li>
+                    <li>Frequent size/fit issues reported by users</li>
+                    <li>User has 3 returns in last 6 months</li>
+                </ul>
+            </div>
+           
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Packaging Indicators – Order Quality Verification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background: #f6f6f6;
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 36px auto;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #0001;
+            padding: 28px 24px 24px 24px;
+            border: 1.5px solid #ddd;
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .order-info, .agent-panel {
+            background: #fff;
+            border-radius: 10px;
+            border: 1.5px solid #e3e3e3;
+            box-shadow: 0 1px 4px #ffd81422;
+            padding: 22px 20px 18px 20px;
+            flex: 1 1 320px;
+            min-width: 290px;
+            margin-bottom: 16px;
+        }
+        .order-header {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #232f3e;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .order-img {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1.5px solid #eee;
+            margin-bottom: 10px;
+            background: #fafafa;
+        }
+        .order-details {
+            font-size: 1.05rem;
+            color: #232f3e;
+            margin-bottom: 10px;
+        }
+        .order-details strong {
+            font-weight: 600;
+            margin-right: 6px;
+        }
+        .delivery-status {
+            display: inline-flex;
+            align-items: center;
+            background: #fffbe6;
+            color: #e67c00;
+            font-weight: 700;
+            border-radius: 8px;
+            padding: 4px 14px;
+            font-size: 1.01rem;
+            border: 1.5px solid #ffd814;
+            margin-bottom: 10px;
+            gap: 6px;
+        }
+        .smart-section {
+            margin: 18px 0 0 0;
+            padding: 18px 14px 14px 14px;
+            background: #f6fff6;
+            border-radius: 10px;
+            border: 1.5px solid #21c52144;
+        }
+        .smart-label {
+            font-weight: 700;
+            color: #232f3e;
+            margin-bottom: 10px;
+            font-size: 1.09rem;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .smart-codes {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .smart-code {
+            background: #fff;
+            border: 1.5px solid #bbb;
+            border-radius: 8px;
+            padding: 7px 14px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #232f3e;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            position: relative;
+        }
+        .info-icon {
+            font-size: 1.08rem;
+            color: #007185;
+            cursor: pointer;
+            border-radius: 50%;
+            padding: 0 3px;
+            border: none;
+            background: none;
+            position: relative;
+        }
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background: #232f3e;
+            color: #fff;
+            text-align: left;
+            border-radius: 7px;
+            padding: 7px 12px;
+            position: absolute;
+            z-index: 2;
+            left: 50%;
+            top: 120%;
+            transform: translateX(-50%);
+            font-size: 0.97rem;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            min-width: 120px;
+        }
+        .smart-code:hover .tooltip,
+        .smart-code:focus-within .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        .eco-tag {
+            display: inline-block;
+            background: #eaffea;
+            color: #21c521;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 4px 14px;
+            font-size: 0.99rem;
+            margin-top: 12px;
+            margin-bottom: 0;
+        }
+        .agent-panel {
+            border: 1.5px solid #ffd814;
+            background: #fffbe6;
+            box-shadow: 0 1px 4px #ffd81422;
+        }
+        .agent-header {
+            font-size: 1.13rem;
+            font-weight: 700;
+            color: #232f3e;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .agent-checklist {
+            margin-bottom: 18px;
+        }
+        .agent-checklist label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: #232f3e;
+            font-weight: 500;
+        }
+        .agent-checklist input[type="checkbox"] {
+            accent-color: #21c521;
+            width: 18px;
+            height: 18px;
+        }
+        .agent-actions {
+            display: flex;
+            gap: 18px;
+            margin-top: 10px;
+        }
+        .accept-btn, .return-btn {
+            flex: 1 1 120px;
+            padding: 12px 0;
+            font-size: 1.09rem;
+            font-weight: 700;
+            border-radius: 22px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+            box-shadow: 0 2px 8px #ffd81422;
+        }
+        .accept-btn {
+            background: linear-gradient(90deg, #ffd814 60%, #ff9900 100%);
+            color: #232f3e;
+            border: 2px solid #ffd814;
+        }
+        .accept-btn:hover {
+            background: linear-gradient(90deg, #ff9900 60%, #ffd814 100%);
+            color: #fff;
+        }
+        .return-btn {
+            background: #fff;
+            color: #e67c00;
+            border: 2px solid #e67c00;
+        }
+        .return-btn:hover {
+            background: #ffe7b2;
+            color: #232f3e;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                gap: 0;
+                padding: 18px 4vw 18px 4vw;
+            }
+            .order-info, .agent-panel {
+                margin-bottom: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align:center; margin-top:24px; margin-bottom:8px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo" style="width:140px; height:auto;">
+    </div>
+    <div class="container">
+        <section class="order-info">
+            <div class="order-header">
+                <span>📦</span>
+                Smart Packaging Indicators – Order Quality Verification
+            </div>
+            <img class="order-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRLE3V1H61SfrgJaBEG4DL0N7_ubNCtwzBng&s" alt="Product Image">
+            <div class="order-details"><strong>Order ID:</strong> #AMZ123456</div>
+            <div class="order-details"><strong>Name:</strong> Nike Running Shoes</div>
+            <div class="order-details"><strong>Delivery Date:</strong> 2024-06-12</div>
+            <div class="delivery-status">Out for Delivery</div>
+            <div class="smart-section">
+                <div class="smart-label">
+                    <span>Smart Quality Check Required</span>
+                </div>
+                <div class="smart-codes">
+                    <div class="smart-code" tabindex="0">
+                        SZ01
+                        <button class="info-icon" aria-label="Info">&#8505;</button>
+                        <span class="tooltip">Size Check</span>
+                    </div>
+                    <div class="smart-code" tabindex="0">
+                        CL02
+                        <button class="info-icon" aria-label="Info">&#8505;</button>
+                        <span class="tooltip">Color Verification</span>
+                    </div>
+                    <div class="smart-code" tabindex="0">
+                        DF03
+                        <button class="info-icon" aria-label="Info">&#8505;</button>
+                        <span class="tooltip">Defect Review</span>
+                    </div>
+                </div>
+                <div class="eco-tag">
+                    🌱 Smart Packaging reduces emissions. Thank you for verifying at doorstep!
+                </div>
+            </div>
+        </section>
+        <section class="agent-panel">
+            <div class="agent-header">
+                🧑‍💼 Please verify the following with the customer at delivery
+            </div>
+            <div class="agent-checklist">
+                <label><input type="checkbox"> Size matches</label>
+                <label><input type="checkbox"> Color correct</label>
+                <label><input type="checkbox"> No defect or damage</label>
+            </div>
+            <div class="agent-actions">
+                <button class="accept-btn">✅ Accept Package</button>
+                <button class="return-btn">🔁 Return Now</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
